@@ -1,31 +1,32 @@
 import express from 'express'
-
+import dotenv from 'dotenv'
 import fs from 'fs'
 import csv from 'csv-parser'
 import { pipeline } from 'stream'
 import nodemailer from 'nodemailer'
 
+dotenv.config()
 const app = express();
 const port = 8000;
 app.use(express.json());
 
 const array = []
 
-const stream =  fs.createReadStream('./recruiters.csv')
-.pipe(csv())
-stream.on("data", (data) => array.push(data))
-stream.on("end", ()=>console.log(stream))
-
-
 const transporter = nodemailer.createTransport({
     service : "gmail",
     auth : {
-        user : '',
-        pass : ''
+        user : process.env.Email,
+        pass : process.env.EMAIL_PASS
     }
 })
 
-for(let row of array){
+const stream =  fs.createReadStream('./recruiters.csv')
+.pipe(csv())
+stream.on("data", (data) =>{
+    array.push(data)
+})
+stream.on("end", async ()=>{
+    for(let row of array){
     try{
 
         await transporter.sendMail({
@@ -51,6 +52,10 @@ for(let row of array){
         console.log(err)
     }
 }
+})
+
+
+
 
 
 app.listen(port,()=>{

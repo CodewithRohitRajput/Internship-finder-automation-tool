@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "node server.js"
+    "dev": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "csv-parser": "^3.2.0",
+    "dotenv": "^17.4.0",
     "express": "^5.2.1",
     "fs": "^0.0.1-security",
     "nodemailer": "^8.0.4"
