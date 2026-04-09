@@ -58,7 +58,7 @@ stream.on("end", async () => {
         attachments: [
           {
             filename: "rohit_resume.pdf",
-            path: "./rohit_resume.pdf",
+            path: "./Fake_Resume.pdf",
           },
         ],
       });
